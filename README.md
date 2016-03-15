@@ -1,6 +1,6 @@
-A. Train CNNs to predict contours of the LV. 
+### A. Train CNNs to predict contours of the LV. 
 0. change the SETTINGS.py data directories, and download the sunny-brook data set, the train, valid, and test data set.
-####Part A.
+#### Part A.
 1. go to CNN_A, 
 2. run >> bash run_train.sh
 	a) it preprocess the image data for the cnn net to train
@@ -12,15 +12,13 @@ if there are additional cases that you need to make predictions, just run the ru
 	a) predicts the contours for test cases
 	b) extracts the sex-age inforamtion for test cases
 
-####part B. 
+#### part B. 
 run >>python train.py
 it will run these step in CNN_B
 
-###TRAIN: Combine all the processed results that contains the area of the contours, build train model based on the know volume result, and predict for the unknows
+### B. Combine all the processed results that contains the area of the contours, build train model based on the know volume result, and predict for the unknows
 run >> ./train_pred.py 
-#use case 1-700 to train the fitting models
-#read all the results from CNN_A/output and CNN_B/output
-#train the following models:
+use case 1-700 to train the fitting models,read all the results from CNN_A/output and CNN_B/output, train the following models:
 	a) sex-age model
 	b) largest-slice model
 	c) 4-channel model
@@ -32,9 +30,9 @@ run >> ./train_pred.py
 ### About data:
 Directory manual_data includes all the hand labeled images and the contours, they are combined with the sunnybrook data to train the CNN network.
 
-## About hardware we used:
+### About hardware we used:
 CNN_A: GTX 970
 CNN_B: GTX 980Ti
 
-## About software:
+### About software:
 python2.7.6
