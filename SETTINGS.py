@@ -13,11 +13,11 @@ else:
     data_sunnybrook = data_root + '/sunnybrook';
     data_kaggle = data_root;
 
-    manual_data_root = '/home/qiliu/Dropbox/Coding/heart/diagnose-heart/manual_data'
+    local_dir = '/home/qiliu/Documents/Coding/heart/diagnose-heart/';
+    manual_data_root = local_dir + 'manual_data'
     data_aug_contours = manual_data_root + '/manual_contours';
 
-    #data_auto_contours = os.path.join(data_root,'auto_contours');
-    intermediate_dir = '/home/qiliu/Dropbox/Coding/heart/diagnose-heart/CNN_A';
+    intermediate_dir = local_dir + 'CNN_A';
     params_dir = intermediate_dir + '/params/'
     output_dir = intermediate_dir + '/output/'
-    tencia_output_dir = '/home/qiliu/Dropbox/Coding/heart/diagnose-heart/CNN_B/output'
+    tencia_output_dir = local_dir + 'CNN_B/output'
