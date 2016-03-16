@@ -8,14 +8,14 @@ Directory manual_data includes all the hand labeled images and the contours, the
 ### B. Train CNNs to predict the contours of the LV.   
 
 ##### Part A.
-1. run >> bash CNN_A/run_train.sh
+
+1. run >> bash CNN_A/run_train.sh  
 	a) it preprocesses the image data for the CNN net to train  
 	b) it trains many version of the CNN model with different parameters  
 	c) it loads the train CNN model and predicts the contours for all cases  
-	d) it extracts the sex-age inforamtion for later use to build sex-age based default model
-
+	d) it extracts the sex-age inforamtion for later use to build sex-age based default model   
 If there are additional cases that you need to make predictions, just run the run_test.sh script:  
-2. run >> bash CNN_A/run_test.sh
+2. run >> bash CNN_A/run_test.sh  
 	a) predicts the contours for test cases   
 	b) extracts the sex-age inforamtion for test cases  
 
@@ -26,8 +26,9 @@ it will run similar steps in CNN_B
 
 ### C. Calculate the volumes
 Combine (average) all the processed results that contains the area of the contours, calculate the volumes for each case, and fit simple models based on the known volume to correct systematic errors, and predict for the unknowns.   
-run >> ./train_pred.py  
-It uses case 1-700 to train the fitting models, reads all the results from CNN_A/output and CNN_B/output, trains the following models:   
+
+run >> ./train_pred.py   
+It uses case 1-700 to fit the following simple models, and generates the final submission file.  
 	a) sex-age model  
 	b) largest-slice model  
 	c) 4-channel model   
@@ -41,6 +42,6 @@ CNN_A: GTX 970
 CNN_B: GTX 980Ti  
 
 ### About software:  
-python2.7.6
-CNN_A: cv2.__version__ = 3.1.0
-CNN_B: cv2.__version__ = 2.4.12
+python2.7.6  
+CNN_A: cv2.__version__ = 3.1.0   
+CNN_B: cv2.__version__ = 2.4.12  
