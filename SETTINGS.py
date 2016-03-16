@@ -1,5 +1,5 @@
 import socket
-if socket.gethostname() == 'Faramir':
+if socket.gethostname() == 'Faramir': #for CNN_B
     data_root = '/home/tencia/Documents/data/heart/'
     data_kaggle = data_root + 'kaggle'
     data_sunnybrook = data_root + 'sunnybrook'
@@ -8,7 +8,7 @@ if socket.gethostname() == 'Faramir':
     data_intermediate = local_root + 'data_intermediate'
     output_dir = local_root + 'CNN_A/output/'
     tencia_output_dir = local_root + 'CNN_B/output/'
-else:
+else: #for CNN_A
     data_root = "/media/qiliu/share/heart/";
     data_sunnybrook = data_root + '/sunnybrook';
     data_kaggle = data_root;

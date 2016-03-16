@@ -32,7 +32,7 @@ def train_sax_model(areas_all,train_true, version,cleaner=[]):
     return sax_predict;
 
 def train_sax_cnt_model(areas_all, cont_all, train_true,version=2,cleaner=[]):
-    #Qi's sax model method2, use contour compeleteness to filter result
+    #sax model method2, use contour compeleteness to filter result
     print(" ---- train sax countour model :");
     cnt_sax_model = SaxModel(version=version);
     cnt_result = analysis.get_preliminary_volume_cnt(areas_all, cont_all,cleaner=cleaner);
@@ -51,7 +51,7 @@ def train_sax_cnt_filter_model(areas_all, cont_all, train_true,cleaner=[]):
     return cnt_sax_predict;
 
 def train_oneslice_model(areas_all,train_true):
-    #train OneSliceModel using Qi's CNN result
+    #train OneSliceModel using CNN_B result
     print(" --- train oneslice model :");
     oneslice_model = OneSliceModel();
     oneslice_model.fit(areas_all,train_true);
@@ -96,10 +96,10 @@ if __name__ == '__main__':
     info = pd.read_csv(sts.output_dir + '/info.csv')
     ch4_data = { int(r[0]):(r[1], r[2]) for _,r in 
           pd.read_csv(sts.tencia_output_dir+'/ch4_volumes_map.csv', header=False).iterrows()};
-    #Tencia's cnn result
+    #CNN_B results
     tencia_files = ['pMS','p1090'];
     tencia_areas = [analysis.get_cnn_results(sts.tencia_output_dir+'/areas_map_{}.csv'.format(x)) for x in tencia_files];
-    #Qi's cnn result
+    #CNN_A results
     qifiles = [ 'v1_p2090_size256_ss100_nocL_tag3_2norm',\
             'v2_p2090_size196_ss100_nocL_tag6_2norm',\
             'v1_p2090_size256_ss150_nocL_tag10_2norm',\
@@ -178,5 +178,6 @@ if __name__ == '__main__':
     analysis.evaluate_pred(final_pred, train_true);
 
     #this is for the test part, the test cases are also calculated in the above trainning process
-    #we might want to save the parameters of the models, and code another script to calculate the test cases. These fittings are very quick, so I'll leave it here and work on some other things first. 
-    analysis.make_submit(final_pred, 701, 1140, "test"); #inclusive 500-700
+    #we might want to save the parameters of the models, and code another script to calculate the test cases. These fittings are very quick anyway.
+    analysis.make_submit(final_pred, 701, 1140, "test"); #inclusive
+    analysis.save_intermediate(final_pred, 1, 1140, "test"); #raw 

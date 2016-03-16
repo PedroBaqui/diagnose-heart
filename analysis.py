@@ -86,14 +86,15 @@ def make_submit(result, start, end, fn):
       
     submit_csv.close();
 
-#def save_intermediate(result,fn):
-#    submit_csv = open(sts.data_root+"/intermediate_%s.csv"%(fn), "w")
-#    submit_csv.write("Id,Systole,s_std,Diastole,d_std\n")
-#    for i in range(1,701):
-#        hd = result[(i-1)*2+1];
-#        hs = result[(i-1)*2];
-#        submit_csv.write('%d,%f,%f,%f,%f\n'%(i,hs[0],hs[1],hd[0],hd[1]));
-#    submit_csv.close();
+def save_intermediate(result,start,end,fn):
+    submit_csv = open(sts.output_dir+"/intermediate_%s.csv"%(fn), "w")
+    submit_csv.write("Id,Systole,s_std,Diastole,d_std\n")
+    for i in range(start,end+1):
+        sede = result.get(i);
+        hd = sede[2:4];
+        hs = sede[0:2];
+        submit_csv.write('%d,%f,%f,%f,%f\n'%(i,hs[0],hs[1],hd[0],hd[1]));
+    submit_csv.close();
 
 def goodness(data):
     return np.sum(data);

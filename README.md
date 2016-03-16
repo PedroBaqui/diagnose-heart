@@ -11,7 +11,7 @@ The directory manual_data/ includes all the hand labeled images and the contours
 
 1. run >> bash CNN_A/run_train.sh  
 	a) it preprocesses the image data for the CNN net to train.  
-	b) it trains many version of the CNN models with different parameters.  
+	b) it trains many version of the CNN models with different parameters. To save time, you can simply just run versions 3 and 6 and get a slightly worse result.
 	c) it loads the trained CNN models and predicts the contours for all cases.  
 	d) it extracts the sex-age inforamtion for later use to build sex-age based default model.   
 If there are additional cases that you need to make predictions, just run the run_test.sh script:  
