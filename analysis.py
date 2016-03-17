@@ -58,13 +58,7 @@ def paratocdf(para):
 def make_submit(result, start, end, fn):
 ##generate submission file
     submit_csv = open(sts.output_dir+"/submit_%s.csv"%(fn), "w")
-    submit_csv.write("Id,")
-    for i in range(0, 600):
-        submit_csv.write("P%d" % i)
-        if i != 599:
-            submit_csv.write(",")
-        else:
-            submit_csv.write("\n")
+    submit_csv.write('Id,%s\n' % ','.join('P%d' % i for i in range(600)))
 
     for case in range(start,end+1):
 	sede = result.get(case);
