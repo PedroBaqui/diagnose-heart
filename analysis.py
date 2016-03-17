@@ -58,13 +58,7 @@ def paratocdf(para):
 def make_submit(result, start, end, fn):
 ##generate submission file
     submit_csv = open(sts.output_dir+"/submit_%s.csv"%(fn), "w")
-    submit_csv.write("Id,")
-    for i in range(0, 600):
-        submit_csv.write("P%d" % i)
-        if i != 599:
-            submit_csv.write(",")
-        else:
-            submit_csv.write("\n")
+    submit_csv.write('Id,%s\n' % ','.join('P%d' % i for i in range(600)))
 
     for case in range(start,end+1):
 	sede = result.get(case);
@@ -377,17 +371,11 @@ def evaluate_pred(preds, train_true):
     N = train_true.shape[0];
     X = np.zeros((N*2,2));
     y = np.zeros(N*2);
-    i = 0;
-    for idx,row in train_true.iterrows():
+    for i,idx,row in enumerate(train_true.iterrows()):
         y[i*2] = row['Systole'];
         y[i*2+1] = row['Diastole'];
         res = preds.get(row['Id']);
-        if res is None:
-            X[i*2] = [np.nan,np.nan];
-            X[i*2+1] = [np.nan,np.nan];
-        else:
-            X[i*2] = res[0:2];
-            X[i*2+1] = res[2:4];
-        i += 1;
+        X[i*2] = res[0:2] if res else [np.nan,np.nan];
+        X[i*2+1] = res[2:4] if res else [np.nan,np.nan];
     score = crps_score(X,y);
     print("score is {}".format(score));
