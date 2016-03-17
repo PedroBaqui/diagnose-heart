@@ -8,6 +8,11 @@ import sys
 
 import numpy as np
 
+"""
+predict the contour fo the Left Ventricle for all cases 
+based on the trained CNN.
+"""
+
 M = int(sys.argv[1]);#cases start number (include)
 N = int(sys.argv[2]);#cases end number (include)
 

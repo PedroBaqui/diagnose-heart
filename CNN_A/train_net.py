@@ -10,6 +10,9 @@ import utils as u
 from models import *
 
 if __name__=='__main__':
+    """
+    build and train the CNNs.
+    """
     import numpy as np
     import dsb_utils as du
     import config as c

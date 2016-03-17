@@ -5,6 +5,10 @@ import sys
 import os
 
 if __name__=='__main__':
+    """
+    extract the sex and age information for each case,
+    it will be used to build the age-sex model
+    """
     import sys;
     import time;
     M = int(sys.argv[1]);

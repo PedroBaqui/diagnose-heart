@@ -9,6 +9,12 @@ from heart import getAlignImg;
 import h5py
 import dsb_utils as du;
 
+"""
+This script processes (crop from center, rotate, etc..) all 
+the sunny-brook dataset images and the hand-labeled images, 
+and put them into a single hdf5 file for the CNNs to load and train later
+"""
+
 np.random.seed(5678);
 SZ = int(sys.argv[1]);
 
