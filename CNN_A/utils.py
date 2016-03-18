@@ -116,7 +116,7 @@ class DataH5PyStreamer:
         self.tr_data = H5PYDataset(h5filename, which_sets=tr_sets)
         self.te_data = None if notest else H5PYDataset(h5filename, which_sets=te_sets)
         self.ntrain = ntrain or self.tr_data.num_examples
-        self.ntest = ntest or (0 if self.te_data is None else self.te_data.num_examples)
+        self.ntest = ntest or self.te_data.num_examples if self.te_data else 0
 
     def dataset(self, training=True):
         return self.tr_data if training else self.te_data
@@ -124,10 +124,10 @@ class DataH5PyStreamer:
         n = self.ntrain if training else self.ntest
         if n==0:
             return None;
-        sch = ShuffledScheme(examples=n, batch_size=self.batch_size) if shuffled else \
-                SequentialScheme(examples=n, batch_size=self.batch_size)
-        return DataStream(self.tr_data if training else self.te_data, \
-                iteration_scheme = sch)
+        func = ShuffledScheme if shuffled else SequentialScheme
+        sch = func(examples=n, batch_size=self.batch_size)
+        data = self.tr_data if training else self.te_data
+        return DataStream(data, iteration_scheme = sch)
 
 # helper function for building vae's
 def log_likelihood(tgt, mu, ls):
