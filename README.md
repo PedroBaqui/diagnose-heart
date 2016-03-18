@@ -38,10 +38,10 @@ It uses case 1-700 to fit the following simple models, and generates the final s
 	f) average model to combine all the previous models
 
 #### About hardware we used:  
-CNN_A: [NVIDIA GeForce GTX 970](http://maxwell.nvidia.com/gtx-970)
-CNN_B: [NVIDIA GeForce GTX 980Ti](http://maxwell.nvidia.com/gtx-980-ti)  
+* CNN_A: [NVIDIA GeForce GTX 970](http://maxwell.nvidia.com/gtx-970)
+* CNN_B: [NVIDIA GeForce GTX 980Ti](http://maxwell.nvidia.com/gtx-980-ti)  
 
 #### About software:  
-Python 2.7.6  
-CNN_A: cv2.__version__ = 3.1.0   
-CNN_B: cv2.__version__ = 2.4.12  
+* Python 2.7.6  
+* CNN_A: cv2.__version__ = 3.1.0   
+* CNN_B: cv2.__version__ = 2.4.12  
