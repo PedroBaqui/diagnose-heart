@@ -110,19 +110,13 @@ class DataH5PyStreamer:
             tr_sets = ('train',)
         else:
             notest = (folds[0] == folds[1]);
-            if not notest:
-                te_sets = ('fold_{}'.format(folds[1]),)
-            else:
-                te_sets = ();
+            te_sets = () if notest else ('fold_{}'.format(folds[1]),)
             tr_sets = tuple(['fold_{}'.format(i) for i in range(folds[0]) if i != folds[1]])
         self.batch_size = batch_size
         self.tr_data = H5PYDataset(h5filename, which_sets=tr_sets)
-        if notest:
-            self.te_data = None;
-        else:
-            self.te_data = H5PYDataset(h5filename, which_sets=te_sets)
-        self.ntrain = ntrain if ntrain is not None else self.tr_data.num_examples
-        self.ntest = ntest if ntest is not None else (0 if self.te_data is None else self.te_data.num_examples)
+        self.te_data = None if notest else H5PYDataset(h5filename, which_sets=te_sets)
+        self.ntrain = ntrain or self.tr_data.num_examples
+        self.ntest = ntest or self.te_data.num_examples if self.te_data else 0
 
     def dataset(self, training=True):
         return self.tr_data if training else self.te_data
@@ -130,10 +124,10 @@ class DataH5PyStreamer:
         n = self.ntrain if training else self.ntest
         if n==0:
             return None;
-        sch = ShuffledScheme(examples=n, batch_size=self.batch_size) if shuffled else \
-                SequentialScheme(examples=n, batch_size=self.batch_size)
-        return DataStream(self.tr_data if training else self.te_data, \
-                iteration_scheme = sch)
+        func = ShuffledScheme if shuffled else SequentialScheme
+        sch = func(examples=n, batch_size=self.batch_size)
+        data = self.tr_data if training else self.te_data
+        return DataStream(data, iteration_scheme = sch)
 
 # helper function for building vae's
 def log_likelihood(tgt, mu, ls):
@@ -188,10 +182,7 @@ def load_params(model, fn):
 # saves params in npz (if filename is a .npz) or pickle if not
 def save_params(model, fn):
     if 'npz' in fn:
-        if isinstance(model, list):
-            param_vals = model
-        else:
-            param_vals = nn.layers.get_all_param_values(model)
+        param_vals = model if isinstance(model, list) else nn.layers.get_all_param_values(model)
         np.savez(fn, *param_vals)
     else:
         with open(fn, 'w') as wr:
@@ -227,4 +218,3 @@ def build_vae_loss(input_var, l_z_mu, l_z_ls, l_x_mu_list, l_x_ls_list, l_x_list
         prediction = x_mu[0] if deterministic else T.sum(x_mu, axis=0)/L
     loss = -1 * (logpxz + kl_div)
     return loss, prediction
-
