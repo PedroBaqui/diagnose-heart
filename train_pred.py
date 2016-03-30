@@ -65,15 +65,10 @@ def build_default_model(oneslice_pred, ch4_pred, sa_predict,p_1 = 0.6):
     default_pred = {};
     def _bdm_ave(x1,x2,x0):
         if np.isnan(x1[0]):
-            if np.isnan(x2[0]):
-                return x0;
-            else:
-                return x2;
-        else:
-            if np.isnan(x2[0]):
-                return x1;
-            else:
-                return np.asarray([x1[0]*p_1 + x2[0]*(1-p_1),min(x1[1],x2[1])]);
+            return x0 if np.isnan(x2[0]) else x2;
+        elif np.isnan(x2[0]):
+            return x1;
+        return np.asarray([x1[0]*p_1 + x2[0]*(1-p_1),min(x1[1],x2[1])]);
 
     for case,value in sa_predict.iteritems():
         pred1 = oneslice_pred.get(case);
@@ -100,14 +95,14 @@ if __name__ == '__main__':
     tencia_files = ['pMS','p1090'];
     tencia_areas = [analysis.get_cnn_results(sts.tencia_output_dir+'/areas_map_{}.csv'.format(x)) for x in tencia_files];
     #CNN_A results
-    qifiles = [ 'v1_p2090_size256_ss100_nocL_tag3_2norm',\
-            'v2_p2090_size196_ss100_nocL_tag6_2norm',\
-            'v1_p2090_size256_ss150_nocL_tag10_2norm',\
-            'v2_p2090_size196_ss150_nocL_tag11_2norm',\
-            'v1_p2090_size256_ss200_nocL_tag5_2norm',\
-            'v2_p2090_size196_ss200_nocL_tag7_2norm',\
-            'v1_p2090_size256_ss75_nocL_tag12_2norm',\
-            'v2_p2090_size196_ss75_nocL_tag13_2norm',\
+    qifiles = [ 'v1_p2090_size256_ss100_nocL_tag3_2norm',
+            'v2_p2090_size196_ss100_nocL_tag6_2norm',
+            'v1_p2090_size256_ss150_nocL_tag10_2norm',
+            'v2_p2090_size196_ss150_nocL_tag11_2norm',
+            'v1_p2090_size256_ss200_nocL_tag5_2norm',
+            'v2_p2090_size196_ss200_nocL_tag7_2norm',
+            'v1_p2090_size256_ss75_nocL_tag12_2norm',
+            'v2_p2090_size196_ss75_nocL_tag13_2norm',
             ];
     qi_areas = [analysis.get_cnn_results(sts.output_dir +"/areas_map_{}.csv".format(v)) for v in qifiles];
     qi_cnts = [analysis.get_cnn_results(sts.output_dir +"/contour_portion_{}.csv".format(v)) for v in qifiles];
