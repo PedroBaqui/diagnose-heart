@@ -37,6 +37,11 @@ It uses case 1-700 to fit the following simple models, and generates the final s
 	d) CNN_A method2  
 	f) average model to combine all the previous models
 
+### D. Results
+The full model gives a score on the train+validation set 0.00936, and test score 0.009485.
+
+For simplicity, you can just run versions 3 and 6 from CNN_A, which gives train+valid score 0.00970 and test score 0.00986.
+
 #### About hardware we used:  
 * CNN_A: [NVIDIA GeForce GTX 970](http://maxwell.nvidia.com/gtx-970)
 * CNN_B: [NVIDIA GeForce GTX 980Ti](http://maxwell.nvidia.com/gtx-980-ti)  
@@ -45,3 +50,4 @@ It uses case 1-700 to fit the following simple models, and generates the final s
 * Python 2.7.6  
 * CNN_A: cv2.__version__ = 3.1.0   
 * CNN_B: cv2.__version__ = 2.4.12  
+
